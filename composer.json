@@ -1,0 +1,19 @@
+{
+    "name": "mihaeu/html-formatter",
+    "description": "HTML Formatter pritifies HTML content by applying proper intendation (no tidy, purification, etc.).",
+    "license": "MIT",
+    "keywords": ["html", "formatter", "pretty", "clean"],
+    "homepage": "https://github.com/mihaeu/html-formatter",
+    "authors": [
+        {
+            "name": "Michael Haeuslmann",
+            "email": "haeuslmann@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "Mihaeu": "src"
+        }
+    }
+}
