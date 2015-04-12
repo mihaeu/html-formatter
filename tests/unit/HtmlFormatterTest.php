@@ -25,11 +25,16 @@ EOT;
         $this->assertEquals($expected, $this->formatter->format('<p>Test</p>'));
     }
 
-    public function testEssentialLineFeedsWithinBlockTagsAreBeingPreserved()
+    /**
+     * If a text node contains a newline whitespace and *no other whitespace*
+     * between two words, then the newline must be replaced by a space
+     * (otherwise the visual html output would be modified)
+     */
+    public function testEssentialLineFeedsAreBeingPreserved()
     {
         $input = <<<EOT
 <p>Test
-    and some more
+and some more
     Linefeeds</p>
 EOT;
         $expected = <<<EOT
@@ -40,23 +45,4 @@ EOT;
         $this->assertSame($expected, $this->formatter->format($input));
     }
 
-    public function testEssentialLineFeedsWithInlineTagsAreBeingPreserved()
-    {
-        $input = <<<EOT
-<p>
-<span>Test
-and text in a second line</span>
-</p>
-EOT;
-
-        $expected = <<<EOT
-<p>
-    <span>
-        Test and text in a second line
-    </span>
-</p>
-EOT;
-        $this->assertSame($expected, $this->formatter->format($input));
-
-    }
 }
