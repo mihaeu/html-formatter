@@ -45,4 +45,11 @@ EOT;
         $this->assertSame($expected, $this->formatter->format($input));
     }
 
+    public function testCRLFareReplacedCorrectly()
+    {
+        $input = "<p>one\r\ntwo</p>";
+        $expected = "<p>\n    one two\n</p>";
+        $this->assertSame($expected, $this->formatter->format($input));
+    }
+
 }
