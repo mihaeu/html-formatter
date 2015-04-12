@@ -25,21 +25,38 @@ EOT;
         $this->assertEquals($expected, $this->formatter->format('<p>Test</p>'));
     }
 
-    public function testLineFeedsWithinTextNodesAreBeingPreserved()
+    public function testEssentialLineFeedsWithinBlockTagsAreBeingPreserved()
     {
-        $actual = <<<EOT
+        $input = <<<EOT
 <p>Test
     and some more
     Linefeeds</p>
 EOT;
         $expected = <<<EOT
 <p>
-    Test
-    and some more
-    Linefeeds
+    Test and some more Linefeeds
+</p>
+EOT;
+        $this->assertSame($expected, $this->formatter->format($input));
+    }
+
+    public function testEssentialLineFeedsWithInlineTagsAreBeingPreserved()
+    {
+        $input = <<<EOT
+<p>
+<span>Test
+and text in a second line</span>
 </p>
 EOT;
 
-        $this->assertEquals($expected, $this->formatter->format($actual));
+        $expected = <<<EOT
+<p>
+    <span>
+        Test and text in a second line
+    </span>
+</p>
+EOT;
+        $this->assertSame($expected, $this->formatter->format($input));
+
     }
 }
