@@ -45,7 +45,7 @@ class HtmlFormatter
 			else if ($element['closing'])
 			{
 				--$indent;
-				$lf = "\n".str_repeat($indentWith, $indent);
+				$lf = "\n".str_repeat($indentWith, abs($indent));
 				if (isset($dom[$index - 1]) && $dom[$index - 1]['opening'])
 				{
 					$lf = '';
