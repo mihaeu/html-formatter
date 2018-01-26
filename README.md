@@ -1,3 +1,9 @@
+> # DEPRECATED
+> I'm surprised that people are still using this. This is a terrible piece of software.
+> I wrote it years ago on a 10" laptop from my tent while camping somewhere in Armenia
+> (yes that's a valid excuse for writing bad software :P)
+> PRs welcome, but until then I would recommend you don't use this.
+
 # HTML Formatter
 
 HTML Formatter re-indents HTML. This is not clean or safe at the moment, but I couldn't find anything else on Packagist that does the job.
