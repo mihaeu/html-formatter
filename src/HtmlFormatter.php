@@ -2,11 +2,6 @@
 
 namespace Mihaeu;
 
-/**
- * HTML Formatter
- *
- * @author Michael Haeuslmann <haeuslmann@gmail.com>
- */
 class HtmlFormatter
 {
 	/**
@@ -19,7 +14,10 @@ class HtmlFormatter
 	 */
 	public static function format($html, $indentWith = '    ', $tagsWithoutIndentation = 'html,link,img,meta')
 	{
-		// remove all line feeds and replace tabs with spaces
+		// replace newlines (CRLF and LF), followed by a non-whitespace character, with a space
+		$html = preg_replace('/\\r?\\n([^\s])/', ' $1', $html);
+
+		// remove all remaining line feeds and replace tabs with spaces
 		$html = str_replace(["\n", "\r", "\t"], ['', '', ' '], $html);
 		$elements = preg_split('/(<.+>)/U', $html, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		$dom = self::parseDom($elements);

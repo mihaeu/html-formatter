@@ -2,6 +2,9 @@
 
 namespace Mihaeu;
 
+/**
+ * @covers Mihaeu\HtmlFormatter
+ */
 class HtmlFormatterTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -25,22 +28,31 @@ EOT;
         $this->assertEquals($expected, $this->formatter->format('<p>Test</p>'));
     }
 
-    public function testLineFeedsWithinTextNodesAreBeingPreserved()
+    /**
+     * If a text node contains a newline whitespace and *no other whitespace*
+     * between two words, then the newline must be replaced by a space
+     * (otherwise the visual html output would be modified)
+     */
+    public function testEssentialLineFeedsAreBeingPreserved()
     {
-        $actual = <<<EOT
+        $input = <<<EOT
 <p>Test
-    and some more
+and some more
     Linefeeds</p>
 EOT;
         $expected = <<<EOT
 <p>
-    Test
-    and some more
-    Linefeeds
+    Test and some more Linefeeds
 </p>
 EOT;
+        $this->assertSame($expected, $this->formatter->format($input));
+    }
 
-        $this->assertEquals($expected, $this->formatter->format($actual));
+    public function testCRLFareReplacedCorrectly()
+    {
+        $input = "<p>one\r\ntwo</p>";
+        $expected = "<p>\n    one two\n</p>";
+        $this->assertSame($expected, $this->formatter->format($input));
     }
 
     public function testFormatterDoesNotThrowAnyWarnings()
@@ -58,4 +70,5 @@ EOT;
         $this->assertEquals(0, $warnings, 'Failed to assert that the formatter does not throw any exceptions');
 
     }
+
 }
